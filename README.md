@@ -43,6 +43,10 @@ Ensure you have the following installed:
    ```
    The app will be accessible at [http://localhost:3000](http://localhost:3000).
 
+## Deployment
+The project is deployed on **Vercel**. You can access the live application at:
+[https://short-links-one.vercel.app](https://short-links-one.vercel.app)
+
 ## How It Works
 1. User enters a long URL and a preferred short text.
 2. The provided text is stored in the MongoDB database along with the original URL.
