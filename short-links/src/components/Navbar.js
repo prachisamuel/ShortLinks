@@ -9,6 +9,7 @@ const Navbar = () => {
             <Link href="/">ShortLinks</Link>
         </div>
         <div className='flex gap-3'>
+            <Link href="/shorten"><button className='bg-blue-500 rounded-lg shadow-lg p-3 py-1 font-bold'>Try Now</button></Link>
             <Link href="/github"><button className='bg-blue-500 rounded-lg shadow-lg p-3 py-1 font-bold'>GitHub</button></Link>
         </div>
       </div>

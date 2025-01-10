@@ -1,61 +1,34 @@
-"use client"
-import Link from 'next/link'
-import React, { useState } from 'react'
+import Image from "next/image";
+import localFont from "next/font/local";
+import Link from "next/link";
+
+const poppins = localFont({
+  src: "./fonts/Poppins-ExtraBold.ttf",
+  variable: "--font-poppins",
+  weight: "100 900",
+});
 
 export default function Home() {
-  const [url, seturl] = useState("")
-  const [shorturl, setshorturl] = useState("")
-  const [generated, setGenerated] = useState("")
-
-  const generate = () => {
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-
-      const raw = JSON.stringify({
-          "url": url,
-          "shorturl": shorturl
-      });
-
-      const requestOptions = {
-          method: "POST",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow"
-      };
-
-      fetch("/api/generate", requestOptions)
-          .then((response) => response.json())
-          .then((result) => {
-              setGenerated(`${process.env.NEXT_PUBLIC_HOST}/${shorturl}`)
-              seturl("")   
-              setshorturl("")
-              console.log(result)
-              alert(result.message)
-          
-          })
-          .catch((error) => console.error(error));
-  }
-
   return (
-      <div className='mx-auto max-w-lg bg-blue-100 my-16 p-8 rounded-lg flex flex-col gap-4'>
-          <h1 className='font-bold text-2xl'>Generate your short URLs</h1>
-          <div className='flex flex-col gap-2'>
-              <input type="text"
-                  value={url}
-                  className='px-4 py-2 focus:outline-blue-600 rounded-md'
-                  placeholder='Enter your URL'
-                  onChange={e => { seturl(e.target.value) }} />
+    <main className="bg-blue-100">
+      <section className="flex flex-col gap-20 md:grid md:grid-cols-2 h-[100vh]">
+        <div className="flex flex-col gap-4 justify-center mt-10">
+          <p className={`text-xl lg:text-3xl font-bold ${poppins.className} mx-4 md:mx-16`}>
+            The Best URL Shortener in the Market
+          </p>
+          <p className="text-sm lg:text-base mx-4 md:mx-16">
+            We are the most straightfoward URL Shortener in the world. Most of the url shorteners will track you or ask you to give your details for login. We understand your needs and hence we have created this URL shortener
+          </p>
+          <div className='flex gap-3 justify-start mx-4 md:mx-16'>
+          <Link href="/shorten"><button className='bg-blue-500 rounded-lg shadow-lg p-3 py-1 font-bold text-white'>Try Now</button></Link>
+          <Link href="/github"><button className='bg-blue-500 rounded-lg shadow-lg p-3 py-1 font-bold text-white'>GitHub</button></Link>
+        </div>
+        </div>
+        <div className="flex justify-center items-center relative">
+          <Image className="mix-blend-darken" height={800} width={800} alt="an image of a vector" src={"/img.jpg"} />
+        </div>
 
-              <input type="text"
-                  value={shorturl}
-                  className='px-4 py-2 focus:outline-blue-600 rounded-md'
-                  placeholder='Enter your preferred short URL text'
-                  onChange={e => { setshorturl(e.target.value) }} />
-              <button onClick={generate} className='bg-blue-500 rounded-lg shadow-lg p-3 py-1 my-3 font-bold text-white'>Generate</button>
-          </div>
-
-          {generated && <> <span className='font-bold text-lg'>Your Link </span><code><Link target="_blank" href={generated}>{generated}</Link> 
-              </code></>}
-      </div>
-  )
+      </section>
+    </main>
+  );
 }
